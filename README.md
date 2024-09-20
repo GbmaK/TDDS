@@ -5,14 +5,14 @@ proyecto de taller de diseño y desarrollo de soluciones
 ``git clone https://github.com/GbmaK/TDDS``
 ``cd TDDS``
 
-2. Crea el entrono virtual y activalo
+2. Crea el entrono virtual y activalo:
 ``python -m venv venv``
 ``.\venv\Scripts\activate``
 
-3. Instala las dependencias del proyecto
+3. Instala las dependencias del proyecto:
 ``pip install -r requirements.txt``
 
-4. Prueba la aplicación
+4. Prueba la aplicación:
 ``python manage.py runserver``
 
 IMPORTANTE 
