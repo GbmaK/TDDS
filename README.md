@@ -33,4 +33,8 @@ Crea tu propia rama para trabajarla, puedes hacer el push sin problemas creara i
 
 7. Moverse entre ramas:
 
+8. Volver a cargar el Proyecto si alguien más ya lo a modificado:
+
+``git pull origin main``
+
 
