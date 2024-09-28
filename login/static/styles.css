@@ -8,7 +8,7 @@
 .title-login {
     margin: 0px 0px 15px 0px;
     text-align: center;
-    color: rgb(0, 0, 0);
+    color: #FFFFFF;
     font-size: xxx-large;
     font-family: sans-serif;
     font-weight: 600;
@@ -18,7 +18,7 @@
 .login-container {
     width: 50vw;
     height: 25vw;
-    background-color: #121212;
+    background-color: #141414;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 15px;
