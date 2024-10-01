@@ -11,10 +11,10 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')  # Cambia 'home' por la vista que quieras redirigir después de iniciar sesión
+                return redirect('home')  # Redirige a una página de inicio o dashboard
             else:
                 form.add_error(None, 'Usuario o contraseña incorrectos')
     else:
         form = LoginForm()
-
+    
     return render(request, 'login.html', {'form': form})
