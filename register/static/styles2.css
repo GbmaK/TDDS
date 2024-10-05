@@ -11,27 +11,27 @@ h1 {
     font-weight: 600 !important;
 }
 
-
 #register-card {
     background-color: #141414 !important;
-    padding: 30px !important; /* Ajusta este valor */
+    padding: 30px !important; 
     border-radius: 15px !important;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5) !important;
-    width: 90%; /* Cambia esto según tus necesidades */
-    max-width: 100vh; /* Ajusta el ancho máximo */
-    min-height: 400px; /* Ajusta la altura mínima */
+    width: 90%; 
+    max-width: 100vh; 
+    min-height: 400px; 
     display: flex !important;
     flex-direction: column !important; 
     text-align: center !important;
+    margin: 20px 0 !important; 
 }
 
 .form-box {
     display: flex !important;
     flex-direction: column !important;
     height: 30vh !important;
-    
     justify-content: space-evenly !important;
     border-color: #BB86FC !important;
+    margin: 20px 0 !important; 
 }
 
 .container {
@@ -50,20 +50,18 @@ h1 {
     justify-content: space-evenly !important;
 }
 
-
 .form-control {
     background-color: transparent !important;
     border: 2px solid #a26bfd !important;
     border-radius: 10px !important;
     padding: 10px !important;
     color: white !important;
-    width: 100%; /* Cambia esto a 100% para que ocupe todo el ancho del contenedor */
+    width: 100%; 
     max-width: 650px !important; 
-    margin: 0 auto 15px auto !important; /* Centrando el campo de entrada */
+    margin: 0 auto 15px auto !important; 
     height: 3.5vh !important;
     outline: none !important;
 }
-
 
 .form-control::placeholder {
     color: white !important;
@@ -74,7 +72,6 @@ h1 {
     box-shadow: 0 0 5px #a26bfd !important;
     border-color: #a26bfd !important;
 }
-
 
 .btn-primary {
     color: white !important;
@@ -90,6 +87,7 @@ h1 {
 
     cursor: pointer !important;
 }
+
 .btn-primary:hover {
     background-color: #a26bfd !important; 
     box-shadow: 0 0 10px 2px rgba(187, 134, 252, 0.8) !important;
@@ -115,6 +113,9 @@ h1 {
     background-color: #a26bfd !important; 
     box-shadow: 0 0 10px 2px rgba(187, 134, 252, 0.8) !important;
 }
+
+
+
 
 
 

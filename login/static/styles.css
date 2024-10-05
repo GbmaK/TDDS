@@ -2,7 +2,6 @@ body {
     background-color: #3D3D3D !important;
 }
 
-
 .container {
     display: flex !important;
     justify-content: center !important;
@@ -31,7 +30,6 @@ body {
     text-align: center !important;
     box-sizing: border-box !important;
 }
-
 
 .form-box {
     display: flex !important;
@@ -95,6 +93,7 @@ body {
 
     cursor: pointer !important;
 }
+
 .btn-primary:hover {
     background-color: #a26bfd !important; 
     box-shadow: 0 0 10px 2px rgba(187, 134, 252, 0.8) !important;
@@ -120,6 +119,11 @@ body {
     background-color: #a26bfd !important; 
     box-shadow: 0 0 10px 2px rgba(187, 134, 252, 0.8) !important;
 }
+
+
+
+
+
 
 @media (max-width: 1350px) {
     .login-container {
