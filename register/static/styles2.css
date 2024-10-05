@@ -2,15 +2,7 @@ body {
     background-color: #3D3D3D !important;
 }
 
-
-.container {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    height: 100vh !important;
-}
-
-.title-login {
+h1 {
     margin: 0px 0px 15px 0px !important;
     text-align: center !important;
     color: #FFFFFF !important;
@@ -19,34 +11,35 @@ body {
     font-weight: 600 !important;
 }
 
-.login-container {
+
+#register-card {
     background-color: #141414 !important;
-    padding: 30px !important;
+    padding: 30px !important; /* Ajusta este valor */
     border-radius: 15px !important;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5) !important;
-    width: 100% !important;
-    max-width: 100vh !important; 
+    width: 90%; /* Cambia esto según tus necesidades */
+    max-width: 100vh; /* Ajusta el ancho máximo */
+    min-height: 400px; /* Ajusta la altura mínima */
     display: flex !important;
     flex-direction: column !important; 
     text-align: center !important;
-    box-sizing: border-box !important;
 }
-
 
 .form-box {
     display: flex !important;
     flex-direction: column !important;
     height: 30vh !important;
-}
-
-.form-input {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-    height: 85% !important;
-    align-items: center !important;
+    
     justify-content: space-evenly !important;
     border-color: #BB86FC !important;
+}
+
+.container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    height: 100vh !important;
+    
 }
 
 .btn-container {
@@ -57,18 +50,20 @@ body {
     justify-content: space-evenly !important;
 }
 
+
 .form-control {
     background-color: transparent !important;
-    border: 2px solid #a26bfd !important ;
+    border: 2px solid #a26bfd !important;
     border-radius: 10px !important;
     padding: 10px !important;
     color: white !important;
-    width: 75vw !important;
-    height: 3.5vh !important;
+    width: 100%; /* Cambia esto a 100% para que ocupe todo el ancho del contenedor */
     max-width: 650px !important; 
-    margin-bottom: 15px !important;
+    margin: 0 auto 15px auto !important; /* Centrando el campo de entrada */
+    height: 3.5vh !important;
     outline: none !important;
 }
+
 
 .form-control::placeholder {
     color: white !important;
@@ -121,8 +116,10 @@ body {
     box-shadow: 0 0 10px 2px rgba(187, 134, 252, 0.8) !important;
 }
 
+
+
 @media (max-width: 1350px) {
-    .login-container {
+    .container {
         width: 90% !important; 
     }
 
@@ -131,7 +128,7 @@ body {
         max-width: 100% !important; 
     }
 
-    .btn-primary, .btn-secondary {
+    .btn-primary, .btn-secondary{
         width: 100% !important;
         margin-bottom: 10px !important; 
     }
