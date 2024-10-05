@@ -21,7 +21,9 @@
                     {{ form.password|add_class:"form-control" }}
                     </div>
                     <div class="btn-container">
-                        <p>¿No tienes una cuenta? <a href="{% url 'register' %}">Registrarse</a></p>
+                        <a href="{% url 'register' %}" class="btn-secondary">
+                            ¿No tienes cuenta?<br>Regístrate
+                          </a>
                         <button type="submit" class="btn-primary">Iniciar sesión</button>
                     </div>
                 </div>

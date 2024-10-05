@@ -121,7 +121,7 @@ body {
     box-shadow: 0 0 10px 2px rgba(107, 47, 191, 0.8)  !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1350px) {
     .login-container {
         width: 90% !important; 
     }
