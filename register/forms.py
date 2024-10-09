@@ -1,11 +1,11 @@
 from django import forms
 
 class RegisterForm(forms.Form):
-    username = forms.CharField(
-        max_length=150, 
+    nombre = forms.CharField(
+        max_length=255,
         required=True,
         widget=forms.TextInput(attrs={
-            'class': 'form-control',  # Clase de Bootstrap para darle estilo
+            'class': 'form-control',
             'placeholder': 'Nombre de Usuario'
         })
     )
@@ -16,7 +16,7 @@ class RegisterForm(forms.Form):
             'placeholder': 'Correo electrónico'
         })
     )
-    password = forms.CharField(
+    contraseña = forms.CharField(
         required=True,
         widget=forms.PasswordInput(attrs={
             'class': 'form-control',

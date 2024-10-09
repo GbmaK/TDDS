@@ -12,22 +12,22 @@
 <body>
     <div class="container">
         <div class="card p-4 text-center" id="register-card">
-            <h1 class="mb-4" >Registro</h1>
+            <h1 class="mb-4">Registro</h1>
             <form method="POST" class="form-box">
                 {% csrf_token %}
                 <div class="mb-3">
-                    {{ form.username|add_class:"form-control" }}
+                    {{ form.nombre|add_class:"form-control" }}  <!-- Cambiado de username a nombre -->
                 </div>
                 <div class="mb-3">
                     {{ form.email|add_class:"form-control" }}
                 </div>
                 <div class="mb-3">
-                    {{ form.password|add_class:"form-control" }}
+                    {{ form.contraseña|add_class:"form-control" }}  <!-- Cambiado de password a contraseña -->
                 </div>
                 <div class="btn-container">
                     <a href="{% url 'login' %}" class="btn-secondary">
                         ¿Tienes cuenta?<br>Logeate
-                      </a>
+                    </a>
                     <button type="submit" class="btn btn-primary">Registrarse</button>
                 </div>
             </form>

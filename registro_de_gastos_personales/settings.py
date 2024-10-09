@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'registro_de_gastos_personales.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'tdds', #usen este nombre para la base de datos
+        'USER': '###su usuario###',
+        'PASSWORD': '###su contraseña###',
+        'HOST': 'localhost',  
+        'PORT': '3306',  
     }
 }
 
