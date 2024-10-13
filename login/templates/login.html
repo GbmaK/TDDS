@@ -16,18 +16,48 @@
             <form method="POST" class="form-box">
                 <div class="form-input">
                     {% csrf_token %}
-                    {{ form.username|add_class:"form-control" }}
-                    <!--Lo del add_class es lo del temple tags, para que el css tome el form-control-->       
-                    {{ form.password|add_class:"form-control" }}
+                    <!-- Campo de email -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Ingresa tu email" required>
                     </div>
-                    <div class="btn-container">
-                        <a href="{% url 'register' %}" class="btn-secondary">
-                            ¿No tienes cuenta?<br>Regístrate
-                          </a>
-                        <button type="submit" class="btn-primary">Iniciar sesión</button>
+
+                    <!-- Campo de contraseña -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Ingresa tu contraseña" required>
                     </div>
                 </div>
+
+                <!-- Botones -->
+                <div class="btn-container">
+                    <a href="{% url 'register' %}" class="btn btn-secondary">
+                        ¿No tienes cuenta?<br>Regístrate
+                    </a>
+                    <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                </div>
                 
+                <!-- Mostrar mensajes de error si existen -->
+                {% if messages %}
+                <div id="error-message" class="alert alert-danger mt-3">
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                <script>
+                // Ocultar el mensaje de error después de 5 segundos
+                setTimeout(() => {
+                    const errorMessage = document.getElementById('error-message');
+                    if (errorMessage) {
+                        errorMessage.style.display = 'none';
+                    }
+                }, 3000); 
+                </script>
+
             </form>
         </div>
     </div>

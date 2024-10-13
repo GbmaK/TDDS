@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'login',
     'register',
+    'home',
 ]
 
 MIDDLEWARE = [
@@ -79,8 +80,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'tdds', #usen este nombre para la base de datos
-        'USER': '###su usuario###',
-        'PASSWORD': '###su contraseña###',
+        'USER': 'root',
+        'PASSWORD': '123456789',
         'HOST': 'localhost',  
         'PORT': '3306',  
     }
@@ -116,7 +117,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
