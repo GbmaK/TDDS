@@ -140,3 +140,9 @@ body {
         margin-bottom: 10px !important; 
     }
 }
+
+.alert {
+    position: absolute !important;
+    top: 10% !important;
+    left: 35% !important;
+}

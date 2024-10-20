@@ -18,13 +18,11 @@
                     {% csrf_token %}
                     <!-- Campo de email -->
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
                         <input type="email" name="email" id="email" class="form-control" placeholder="Ingresa tu email" required>
                     </div>
 
                     <!-- Campo de contraseña -->
                     <div class="mb-3">
-                        <label for="password" class="form-label">Contraseña</label>
                         <input type="password" name="password" id="password" class="form-control" placeholder="Ingresa tu contraseña" required>
                     </div>
                 </div>
@@ -40,11 +38,9 @@
                 <!-- Mostrar mensajes de error si existen -->
                 {% if messages %}
                 <div id="error-message" class="alert alert-danger mt-3">
-                    <ul>
                         {% for message in messages %}
-                            <li>{{ message }}</li>
+                            <div>{{ message }}</div>
                         {% endfor %}
-                    </ul>
                 </div>
                 {% endif %}
 

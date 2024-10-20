@@ -1,0 +1,161 @@
+body {
+    background-color: #3D3D3D;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    color: aliceblue !important;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.container-main{
+    width: 1102px;
+    height: 908px;
+    position: relative;
+    top: 50%;
+    margin: auto;
+}
+
+.container-1 {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.container-2 {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 621px;
+}
+
+.container-graf {
+    width: 623px !important;
+    height: 270px;
+    background-color: #121212;
+    margin-right: 20px;
+    border-radius: 30px;
+    box-shadow: 0px 4px 4px #00000025;
+}
+
+.container-dates {
+    width: 455px;
+    height: 270px;
+    background-color: #121212;
+    margin-left: 20px;
+    border-radius: 30px;
+    box-shadow: 0px 4px 4px #00000025;
+}
+
+.container-spenses {
+    width: 623px;
+    height: 621px;
+    background-color: #121212;
+    margin-right: 20px;
+    margin-top: 27px;
+    border-radius: 30px !important;
+    box-shadow: 0px 4px 4px #00000025;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.container-spenses h1 {
+    font-size: xxx-large;
+    margin: 0 0 0 10%;
+    font-weight: 700;
+}
+
+.container-spenses button {
+    margin-right: 10%;
+    width: 5vw;
+    height: 5vh;
+    font-size: xx-large;
+    background-color: #443AD8;
+    border: none;
+    border-radius: 10px;
+    color: aliceblue;
+    margin-top: 4%;
+}
+
+.spenses-title {
+    display: flex;
+    margin: 0;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list-spenses {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-right: 20px;
+    border-radius: 30px;
+    box-shadow: 0px 4px 4px #00000025;
+}
+
+.element-spenses {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 553px;
+    height: 55px;
+    margin-top: 44px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.element-spenses p {
+    font-size: small;
+    padding: 0px 5% 0px 5%;
+    text-align: justify;
+    margin: 0;
+    width: 29.5vw;
+}
+
+.element-spenses h3 {
+    margin: auto;
+    width: 12vw;
+    text-align: center;
+}
+
+.title-hour-spenses {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 12vw;
+}
+
+.title-hour-spenses label{
+    font-size: x-large;
+}
+
+.title-hour-spenses span{
+    font-size: x-small;
+    color: #4F4F4F;
+    font-weight: bold;
+}
+
+.container-categories {
+    width: 455px;
+    height: 612px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-left: 20px;
+}
+
+.container-category {
+    width: 455px;
+    height: 180px;
+    background-color: #121212;
+    border-radius: 30px;
+    position: relative;
+    margin-top: 27px;
+}
