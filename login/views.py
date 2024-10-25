@@ -9,11 +9,11 @@ def login_view(request):
 
         # Consulta para verificar si el email y contraseña coinciden
         with connection.cursor() as cursor:
-            cursor.execute("SELECT id_usuario, nombre FROM Usuarios WHERE email = %s AND contraseña = %s", [email, password])
+            cursor.execute("SELECT id_usuario, nombre FROM usuarios WHERE email = %s AND contraseña = %s", [email, password])
             user = cursor.fetchone()
 
         if user:
-            # Aquí podrías establecer la sesión si es necesario
+            
             request.session['usuario_id'] = user[0]  # Guardar id_usuario en la sesión
             request.session['nombre_usuario'] = user[1]  # Guardar el nombre en la sesión
             return redirect('home')  # Redirige a la página principal después de loguearse

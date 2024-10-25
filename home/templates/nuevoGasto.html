@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Gasto</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'nuevoGasto.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container-main">
+        <form method="POST">
+
+            {% csrf_token %}
+            <input type="text" name="titulo" placeholder="Título del Gasto" maxlength="9" required />
+
+            <input type="text" name="descripcion" placeholder="Descripción de la compra" maxlength="70" required />
+
+            <select name="categoria" class="categorias" required>
+                <option value="" disabled selected>Seleccione una categoría</option>
+                {% for categoria in categorias %}
+                    <option value="{{ categoria.id_categoria }}">{{ categoria.nombre_categoria  }}</option>
+                {% endfor %}
+            </select>
+
+            <input type="number" name="monto" placeholder="Valor del gasto $" step="0.01" required />
+
+            <button type="submit">Agregar Nuevo Gasto</button>
+        </form>
+
+        <div class="container-buttons">
+            <button>Eliminar Categoria</button>
+            <button>Añadir Categoria</button>
+        </div>
+        
+    </div>
+</body>
+</html>

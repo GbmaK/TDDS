@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'home.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'home.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -13,8 +13,8 @@
 <body>
     <div class="container-main">
         <div class="container-1">
-            <div class="container-graf">a</div>
-            <div class="container-dates">a</div>
+            <div class="container-graf"><img src="../static/images/grafic.svg"/></div>
+            <div class="container-dates"><img src="../static/images/dates.svg"/></div>
         </div>
     
         <div class="container-2">
@@ -22,7 +22,7 @@
             <div class="container-spenses">
                 <div class="spenses-title">
                     <h1>Gastos</h1>
-                    <button>+</button>
+                    <a class="link" href="{% url 'nuevo-gasto' %}"><button>+</button></a>
                 </div>
     
                 <ul class="list-spenses">
@@ -51,7 +51,7 @@
                         <span>Presupuesto</span>
                         <span>{{ presupuesto.categoria.nombre_categoria}}</span>
                     </div>
-                    <h3>${{ presupuesto.limite_presupuesto|floatformat:0 }}</h3>
+                    <h3>{{ presupuesto.limite_presupuesto|floatformat:0 }}</h3>
                 </li>
                 {% empty %}
                 <li>No tienes presupuestos registrados.</li>

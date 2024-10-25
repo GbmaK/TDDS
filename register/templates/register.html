@@ -16,13 +16,22 @@
             <form method="POST" class="form-box">
                 {% csrf_token %}
                 <div class="mb-3">
-                    {{ form.nombre|add_class:"form-control" }}  <!-- Cambiado de username a nombre -->
+                    {{ form.nombre|add_class:"form-control" }} 
+                    {% for error in form.nombre.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
                 </div>
                 <div class="mb-3">
                     {{ form.email|add_class:"form-control" }}
+                    {% for error in form.email.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
                 </div>
                 <div class="mb-3">
-                    {{ form.contraseña|add_class:"form-control" }}  <!-- Cambiado de password a contraseña -->
+                    {{ form.contraseña|add_class:"form-control" }}  
+                    {% for error in form.contraseña.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
                 </div>
                 <div class="btn-container">
                     <a href="{% url 'login' %}" class="btn-secondary">
@@ -31,6 +40,7 @@
                     <button type="submit" class="btn btn-primary">Registrarse</button>
                 </div>
             </form>
+            
         </div>
     </div>
 

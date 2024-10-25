@@ -80,6 +80,15 @@ body {
     border-radius: 10px;
     color: aliceblue;
     margin-top: 4%;
+    cursor: pointer;
+}
+
+.link {
+    margin-right: 10%;
+    background-color: #443AD8;
+    border: none;
+    border-radius: 10px;
+    color: aliceblue;
 }
 
 .spenses-title {
@@ -88,15 +97,20 @@ body {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top: 8%;
 }
 
 .list-spenses {
     list-style: none;
     padding: 0;
     margin: 0;
-    margin-right: 20px;
     border-radius: 30px;
     box-shadow: 0px 4px 4px #00000025;
+    overflow-y: scroll;
+}
+
+.list-spenses::-webkit-scrollbar {
+    width: 0px; /* Ancho de la barra de desplazamiento */
 }
 
 .element-spenses {
@@ -112,10 +126,12 @@ body {
 
 .element-spenses p {
     font-size: small;
-    padding: 0px 5% 0px 5%;
     text-align: justify;
     margin: 0;
     width: 29.5vw;
+    word-wrap: break-word;
+    max-width: 250px;
+    padding: 0px 20px 0px 20px;
 }
 
 .element-spenses h3 {
@@ -158,4 +174,24 @@ body {
     border-radius: 30px;
     position: relative;
     margin-top: 27px;
+    display: grid;
+}
+
+.container-category div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.container-category div span{
+    font-size: x-large;
+}
+
+.container-category h3{
+    text-align: center;
+    justify-self: center;
+    font-size: xxx-large;
+    margin: 0;
+    color: #AAAAAA;
 }
