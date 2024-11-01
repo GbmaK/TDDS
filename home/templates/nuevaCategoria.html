@@ -1,0 +1,26 @@
+<!-- nuevaCategoria.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Categoría</title>
+    <link rel="stylesheet" href="{% static 'categoria.css' %}">
+</head>
+<body>
+    <h2 >Crear Nueva Categoría</h2>
+    <form method="post" action="{% url 'nuevaCategoria' %}">
+        {% csrf_token %}
+        
+        <!-- Nombre de la Categoría -->
+        <label for="nombre_categoria">Nombre de la Categoría:</label>
+        <input type="text" name="nombre_categoria" id="nombre_categoria" required>
+        
+        <!-- Descripción de la Categoría -->
+        <label for="descripcion">Descripción:</label>
+        <textarea name="descripcion" id="descripcion" required></textarea>
+        
+        <button type="submit">Crear Categoría</button>
+    </form>
+</body>
+</html>

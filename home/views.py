@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Gastos, Categorias, Presupuestos, Notificaciones
 import datetime
 
@@ -30,10 +31,7 @@ def nuevo_gasto(request):
         usuario_id = request.session['usuario_id']
         categorias = Categorias.objects.filter(usuario_id=usuario_id)
 
-        print(usuario_id)
-        print(categorias)
         if request.method == 'POST':
-            # Aquí deberías manejar la creación del nuevo gasto
             titulo = request.POST.get('titulo')
             categoria_id = request.POST.get('categoria')
             monto = request.POST.get('monto')
@@ -56,3 +54,48 @@ def nuevo_gasto(request):
     else:
         return redirect('login')
 
+def nuevo_presupuesto(request):
+    if request.method == 'POST' and 'usuario_id' in request.session:
+        usuario = request.user  # Obtener el usuario actual
+        
+        # Obtener los datos del formulario
+        categoria_id = request.POST.get('categoria')
+        limite_presupuesto = request.POST.get('limite_presupuesto')
+        fecha_inicio = request.POST.get('fecha_inicio')
+        fecha_fin = request.POST.get('fecha_fin')
+        
+        # Crear un nuevo presupuesto
+        presupuesto = Presupuestos(
+            usuario_id=request.session['usuario_id'],  # Asignar el usuario actual
+            categoria_id=categoria_id,
+            limite_presupuesto=limite_presupuesto,
+            fecha_inicio=fecha_inicio,
+            fecha_fin=fecha_fin
+        )
+        presupuesto.save()
+        
+        return redirect('nuevo-gasto')  # Cambia esta ruta según tu necesidad
+
+    # Obtener todas las categorías para el formulario
+    categorias = Categorias.objects.all()
+    return render(request, 'nuevoPresupuesto.html', {'categorias': categorias})
+
+def nueva_categoria(request):
+    if request.method == 'POST' and 'usuario_id' in request.session:
+        usuario = request.user  # Obtener el usuario actual
+        
+        # Obtener los datos del formulario
+        nombre_categoria = request.POST.get('nombre_categoria')
+        descripcion = request.POST.get('descripcion')
+        
+        # Crear una nueva categoría
+        categoria = Categorias(
+            usuario_id = request.session['usuario_id'],
+            nombre_categoria=nombre_categoria,
+            descripcion=descripcion
+        )
+        categoria.save()
+        
+        return redirect('nuevo-gasto')  # Cambia esta ruta según tu necesidad
+
+    return render(request, 'nuevaCategoria.html')

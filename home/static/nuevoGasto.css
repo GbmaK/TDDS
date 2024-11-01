@@ -1,0 +1,56 @@
+body {
+    background-color: #3D3D3D;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    color: aliceblue !important;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.container-main{
+    top: 25vh;
+    position: relative;
+    margin: auto;
+    background-color: #121212;
+    height: 50vh;
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30px;
+    box-shadow: 0px 4px 4px #00000025;
+}
+
+.container-main form{
+    display: flex;
+    width: 85%;
+    height: 70%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-main form input{
+    width: 100%;
+    padding: 0;
+    margin: 1% 2% 1% 2%;
+    height: 4vh;
+    border-radius: 30px;
+}
+
+.categorias {
+    width: 100.87%;
+    margin: 1% 2% 1% 2%;
+    height: 4.301vh;
+    border-radius: 30px;
+}
+
+.container-main form button{
+    width: 100%;
+    margin: 1% 2% 1% 2%;
+    height: 4vh;
+    padding: 0;
+    border-radius: 30px;
+}

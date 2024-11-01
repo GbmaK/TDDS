@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'home.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -25,38 +26,43 @@
                     <a class="link" href="{% url 'nuevo-gasto' %}"><button>+</button></a>
                 </div>
     
-                <ul class="list-spenses">
-                    <!-- Mapeo de los gastos -->
-                    {% for gasto in gastos %}
-                    <li class="element-spenses">
-                        <div class="title-hour-spenses">
-                            <label>{{  gasto.titulo }}</label>
-                            <span>{{ gasto.fecha|date:"d/m/Y H:i A" }}</span>
-                        </div>
-                        <p>{{ gasto.descripcion }}</p>
-                        <h3>${{ gasto.monto|floatformat:0 }}</h3>
-                    </li>
-                    {% empty %}
-                    <li>No tienes gastos registrados.</li>
-                    {% endfor %}
-                </ul>
+                
+                    <ul class="list-spenses">
+                        <!-- Mapeo de los gastos -->
+                        {% for gasto in gastos %}
+                        <li class="element-spenses">
+                            <div class="title-hour-spenses">
+                                <label>{{  gasto.titulo }}</label>
+                                <span>{{ gasto.fecha|date:"d/m/Y H:i A" }}</span>
+                            </div>
+                            <p>{{ gasto.descripcion }}</p>
+                            <h3>${{ gasto.monto|floatformat:0 }}</h3>
+                        </li>
+                        {% empty %}
+                        <li>No tienes gastos registrados.</li>
+                        {% endfor %}
+                    </ul>
+                
             </div>
 
             <!--############################################ PRESUPUESTOS FIGMA ###############################################-->
-            <ul class="container-categories">
-                <!-- Mapeo de los presupuestos -->
-                {% for presupuesto in presupuestos %}
-                <li class="container-category">
-                    <div>
-                        <span>Presupuesto</span>
-                        <span>{{ presupuesto.categoria.nombre_categoria}}</span>
-                    </div>
-                    <h3>{{ presupuesto.limite_presupuesto|floatformat:0 }}</h3>
-                </li>
-                {% empty %}
-                <li>No tienes presupuestos registrados.</li>
-                {% endfor %}
-            </ul>
+            <div class="container-list-spenses">
+                <ul class="container-categories">
+                    <!-- Mapeo de los presupuestos -->
+                    {% for presupuesto in presupuestos %}
+                    <li class="container-category">
+                        <div>
+                            <span>Presupuesto</span>
+                            <span>{{ presupuesto.categoria.nombre_categoria}}</span>
+                        </div>
+                        <h3>{{ presupuesto.limite_presupuesto|floatformat:0 }}</h3>
+                    </li>
+                    {% empty %}
+                    <li>No tienes presupuestos registrados.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
         </div>
     </div>
 </body>

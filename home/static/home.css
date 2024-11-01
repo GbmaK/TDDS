@@ -50,6 +50,11 @@ body {
     box-shadow: 0px 4px 4px #00000025;
 }
 
+.container-list-spenses {
+    width: auto;
+    height: 623px;
+}
+
 .container-spenses {
     width: 623px;
     height: 621px;
@@ -62,6 +67,11 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: stretch;
+    overflow-y: scroll;
+}
+
+.container-spenses::-webkit-scrollbar {
+    width: 0px; /* Ancho de la barra de desplazamiento */
 }
 
 .container-spenses h1 {
@@ -160,11 +170,16 @@ body {
 
 .container-categories {
     width: 455px;
-    height: 612px;
+    height: 623px;
     list-style: none;
     padding: 0;
     margin: 0;
-    margin-left: 20px;
+    overflow-y: scroll;
+}
+
+.container-categories::-webkit-scrollbar {
+    width: 0px; /* Ancho de la barra de desplazamiento */
+    height: 0px; /* Ancho de la barra de desplazamiento */
 }
 
 .container-category {
