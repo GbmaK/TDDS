@@ -1,0 +1,10 @@
+<form method="post">
+    {% csrf_token %}
+    <label for="presupuesto">Selecciona un presupuesto a eliminar:</label>
+    <select name="presupuesto" id="presupuesto" required>
+        {% for presupuesto in presupuestos %}
+            <option value="{{ presupuesto.id_presupuesto }}">{{ presupuesto.categoria.nombre_categoria }} ({{ presupuesto.fecha_inicio }} - {{ presupuesto.fecha_fin }})</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Eliminar Presupuesto</button>
+</form>

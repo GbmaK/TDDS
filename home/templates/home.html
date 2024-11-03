@@ -26,7 +26,7 @@
                     <a class="link" href="{% url 'nuevo-gasto' %}"><button>+</button></a>
                 </div>
     
-                
+                <div class="container-list-spenses">
                     <ul class="list-spenses">
                         <!-- Mapeo de los gastos -->
                         {% for gasto in gastos %}
@@ -42,7 +42,7 @@
                         <li>No tienes gastos registrados.</li>
                         {% endfor %}
                     </ul>
-                
+                </div>
             </div>
 
             <!--############################################ PRESUPUESTOS FIGMA ###############################################-->

@@ -1,0 +1,10 @@
+<form method="post">
+    {% csrf_token %}
+    <label for="categoria">Selecciona una categoría a eliminar:</label>
+    <select name="categoria" id="categoria" required>
+        {% for categoria in categorias %}
+            <option value="{{ categoria.id_categoria }}">{{ categoria.nombre_categoria }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Eliminar Categoría</button>
+</form>

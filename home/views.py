@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Gastos, Categorias, Presupuestos, Notificaciones
 import datetime
@@ -99,3 +99,28 @@ def nueva_categoria(request):
         return redirect('nuevo-gasto')  # Cambia esta ruta según tu necesidad
 
     return render(request, 'nuevaCategoria.html')
+
+def eliminar_categoria(request):
+    if 'usuario_id' in request.session:
+        usuario_id = request.session['usuario_id']
+        categorias = Categorias.objects.filter(usuario_id=usuario_id)
+        
+        if request.method == 'POST':
+            categoria_id = request.POST.get('categoria')
+            categoria = get_object_or_404(Categorias, id_categoria=categoria_id, usuario_id=usuario_id)
+            categoria.delete()
+            return redirect('home')
+
+    return render(request, 'eliminarCategoria.html', {'categorias': categorias})
+
+def eliminar_presupuesto(request):
+    if 'usuario_id' in request.session:
+        usuario_id = request.session['usuario_id']
+        presupuestos = Presupuestos.objects.filter(usuario_id=usuario_id)
+        
+        if request.method == 'POST':
+            presupuesto_id = request.POST.get('presupuesto')
+            presupuesto = get_object_or_404(Presupuestos, id_presupuesto=presupuesto_id, usuario_id=usuario_id)
+            presupuesto.delete()
+            return redirect('home')
+    return render(request, 'eliminarPresupuesto.html', {'presupuestos': presupuestos})

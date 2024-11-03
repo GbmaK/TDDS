@@ -53,6 +53,7 @@ body {
 .container-list-spenses {
     width: auto;
     height: 623px;
+    margin-top: 27px;
 }
 
 .container-spenses {
@@ -188,7 +189,7 @@ body {
     background-color: #121212;
     border-radius: 30px;
     position: relative;
-    margin-top: 27px;
+    margin-bottom: 27px;
     display: grid;
 }
 
