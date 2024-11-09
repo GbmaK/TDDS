@@ -19,7 +19,7 @@ class Categorias(models.Model):
 class Gastos(models.Model):
     id_gasto = models.AutoField(primary_key=True)
     usuario = models.ForeignKey('Usuarios', models.DO_NOTHING, blank=True, null=True)
-    categoria = models.ForeignKey(Categorias, models.DO_NOTHING, blank=True, null=True)
+    categoria = models.ForeignKey(Categorias, on_delete=models.CASCADE, blank=True, null=True)  # Cambiado a CASCADE
     titulo = models.CharField(max_length=255)
     monto = models.DecimalField(max_digits=10, decimal_places=2)
     fecha = models.DateTimeField(blank=True, null=True, auto_now_add=True)
@@ -52,7 +52,7 @@ class HomeCategoria(models.Model):
 class Notificaciones(models.Model):
     id_notificacion = models.AutoField(primary_key=True)
     usuario = models.ForeignKey('Usuarios', models.DO_NOTHING, blank=True, null=True)
-    categoria = models.ForeignKey(Categorias, models.DO_NOTHING, blank=True, null=True)
+    categoria = models.ForeignKey(Categorias, on_delete=models.CASCADE, blank=True, null=True)  # Cambiado a CASCADE
     umbral = models.DecimalField(max_digits=10, decimal_places=2)
     tipo_notificacion = models.CharField(max_length=60, blank=True, null=True)
     activo = models.IntegerField(blank=True, null=True)
@@ -64,7 +64,7 @@ class Notificaciones(models.Model):
 class Presupuestos(models.Model):
     id_presupuesto = models.AutoField(primary_key=True)
     usuario = models.ForeignKey('Usuarios', models.DO_NOTHING, blank=True, null=True)
-    categoria = models.ForeignKey(Categorias, models.DO_NOTHING, blank=True, null=True)
+    categoria = models.ForeignKey(Categorias, on_delete=models.CASCADE, blank=True, null=True)  # Cambiado a CASCADE
     limite_presupuesto = models.DecimalField(max_digits=10, decimal_places=2)
     fecha_inicio = models.DateTimeField(blank=True, null=True)
     fecha_fin = models.DateTimeField(blank=True, null=True)

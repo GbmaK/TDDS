@@ -13,17 +13,25 @@
 <body>
     <div class="container-main">
         <h2>Nuevo Gasto</h2>
-        <form method="POST">
 
+        <!-- Bloque para mostrar mensajes de éxito o error -->
+        {% if messages %}
+            <div class="message-container">
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST">
             {% csrf_token %}
             <input type="text" name="titulo" placeholder="Título del Gasto" maxlength="9" required/>
-
             <input type="text" name="descripcion" placeholder="Descripción de la compra" maxlength="70" required/>
 
             <select name="categoria" class="categorias" required>
                 <option value="" disabled selected>Seleccione una categoría</option>
                 {% for categoria in categorias %}
-                    <option class="opciones" value="{{ categoria.id_categoria }}">{{ categoria.nombre_categoria  }}</option>
+                    <option class="opciones" value="{{ categoria.id_categoria }}">{{ categoria.nombre_categoria }}</option>
                 {% endfor %}
             </select>
 
@@ -36,7 +44,6 @@
             <button id="add-cat"><a href="{% url 'nuevaCategoria' %}">Crear Categoria</a></button>
             <button id="add-pre"><a href="{% url 'nuevoPresupuesto' %}">Agregar Presupuesto</a></button>
         </div>
-        
     </div>
 </body>
 </html>

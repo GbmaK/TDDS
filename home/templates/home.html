@@ -28,34 +28,36 @@
     
                 <div class="container-list-spenses">
                     <ul class="list-spenses">
-                        <!-- Mapeo de los gastos -->
                         {% for gasto in gastos %}
                         <li class="element-spenses">
                             <div class="title-hour-spenses">
-                                <label>{{  gasto.titulo }}</label>
+                                <label>{{ gasto.titulo }}</label>
                                 <span>{{ gasto.fecha|date:"d/m/Y H:i A" }}</span>
                             </div>
                             <p>{{ gasto.descripcion }}</p>
                             <h3>${{ gasto.monto|floatformat:0 }}</h3>
+                            <!-- Botón de eliminar -->
+                            <a href="{% url 'eliminar-gasto' gasto.id_gasto %}" class="btn-delete">Eliminar</a>
                         </li>
                         {% empty %}
                         <li>No tienes gastos registrados.</li>
                         {% endfor %}
                     </ul>
                 </div>
+                
+                
             </div>
 
             <!--############################################ PRESUPUESTOS FIGMA ###############################################-->
             <div class="container-list-spenses">
                 <ul class="container-categories">
-                    <!-- Mapeo de los presupuestos -->
                     {% for presupuesto in presupuestos %}
                     <li class="container-category">
                         <div>
-                            <span>Presupuesto</span>
-                            <span>{{ presupuesto.categoria.nombre_categoria}}</span>
+                            <span>Presupuesto Disponible</span>
+                            <span>{{ presupuesto.categoria.nombre_categoria }}</span>
                         </div>
-                        <h3>{{ presupuesto.limite_presupuesto|floatformat:0 }}</h3>
+                        <h3>${{ presupuesto.presupuesto_restante|floatformat:0 }}</h3> <!-- Mostramos el presupuesto restante -->
                     </li>
                     {% empty %}
                     <li>No tienes presupuestos registrados.</li>
