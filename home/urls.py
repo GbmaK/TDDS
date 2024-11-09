@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home_view, nuevo_gasto, nuevo_presupuesto , nueva_categoria, eliminar_categoria, eliminar_presupuesto, eliminar_gasto
+from .views import home_view, nuevo_gasto, nuevo_presupuesto , nueva_categoria, eliminar_categoria, eliminar_presupuesto, eliminar_gasto, historial_gastos
 
 urlpatterns = [
     path('', home_view, name='home'),  
@@ -9,4 +9,5 @@ urlpatterns = [
     path('eliminar-categoria/', eliminar_categoria, name='eliminar-categoria'),
     path('eliminar-presupuesto/', eliminar_presupuesto, name='eliminar-presupuesto'),
     path('eliminar-gasto/<int:gasto_id>/', eliminar_gasto, name='eliminar-gasto'),
+    path('historialGastos/', historial_gastos, name='historial-gastos'),
 ]

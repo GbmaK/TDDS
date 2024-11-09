@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial de Gastos</title>
+</head>
+<body>
+    <h1>Historial de Gastos</h1>
+    
+    <!-- Formulario de Búsqueda -->
+    <form method="GET">
+        <label for="titulo">Título:</label>
+        <input type="text" name="titulo" id="titulo" value="{{ request.GET.titulo }}">
+
+        <label for="categoria">Categoría:</label>
+        <select name="categoria" id="categoria">
+            <option value="">Todas</option>
+            {% for categoria in categorias %}
+                <option value="{{ categoria.id_categoria }}" {% if categoria.id_categoria|stringformat:"s" == request.GET.categoria %}selected{% endif %}>
+                    {{ categoria.nombre_categoria }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label for="fecha">Fecha:</label>
+        <input type="date" name="fecha" id="fecha" value="{{ request.GET.fecha }}">
+
+        <label for="monto">Monto:</label>
+        <input type="text" name="monto" id="monto" value="{{ request.GET.monto }}">
+
+        <button type="submit">Buscar</button>
+    </form>
+    
+    <!-- Lista de Resultados -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Categoría</th>
+                <th>Fecha</th>
+                <th>Monto</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for gasto in gastos %}
+            <tr>
+                <td>{{ gasto.titulo }}</td>
+                <td>{{ gasto.categoria.nombre_categoria}}</td>
+                <td>{{ gasto.fecha|date:"Y-m-d" }}</td>
+                <td>{{ gasto.monto }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No se encontraron resultados</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

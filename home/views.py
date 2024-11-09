@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Sum
@@ -92,7 +93,7 @@ def nuevo_gasto(request):
 
 def nuevo_presupuesto(request):
     if request.method == 'POST' and 'usuario_id' in request.session:
-        usuario = request.user  # Obtener el usuario actual
+        usuario_id = request.session['usuario_id']  # Obtener el ID del usuario actual
         
         # Obtener los datos del formulario
         categoria_id = request.POST.get('categoria')
@@ -100,17 +101,29 @@ def nuevo_presupuesto(request):
         fecha_inicio = request.POST.get('fecha_inicio')
         fecha_fin = request.POST.get('fecha_fin')
         
-        # Crear un nuevo presupuesto
+        # Verificar si ya existe un presupuesto para esta categoría y usuario
+        existing_presupuesto = Presupuestos.objects.filter(
+            categoria_id=categoria_id, usuario_id=usuario_id
+        ).first()
+
+        if existing_presupuesto:
+            # Si ya existe un presupuesto, mostrar mensaje de error
+            messages.error(request, "Ya tienes un presupuesto asignado a esta categoría.")
+            return redirect('nuevoPresupuesto')  # O redirigir a donde necesites
+
+        # Crear un nuevo presupuesto si no existe uno para esta categoría
         presupuesto = Presupuestos(
-            usuario_id=request.session['usuario_id'],  # Asignar el usuario actual
+            usuario_id=usuario_id,  # Asignar el usuario actual
             categoria_id=categoria_id,
             limite_presupuesto=limite_presupuesto,
             fecha_inicio=fecha_inicio,
             fecha_fin=fecha_fin
         )
         presupuesto.save()
-        
-        return redirect('nuevo-gasto')  # Cambia esta ruta según tu necesidad
+
+        # Mensaje de éxito y redirección
+        messages.success(request, "Presupuesto creado exitosamente.")
+        return redirect('home')  # O redirigir a la página que desees
 
     # Obtener todas las categorías para el formulario
     categorias = Categorias.objects.all()
@@ -184,3 +197,39 @@ def eliminar_gasto(request, gasto_id):
         return redirect('home')
     else:
         return redirect('login')
+    
+def historial_gastos(request):
+    # Obtener el usuario de la sesión
+    usuario_id = request.session.get('usuario_id')
+    
+    # Filtros iniciales
+    gastos = Gastos.objects.filter(usuario_id=usuario_id)
+
+    # Leer los filtros de la solicitud GET
+    titulo = request.GET.get('titulo')
+    categoria_id = request.GET.get('categoria')
+    fecha = request.GET.get('fecha')
+    monto = request.GET.get('monto')
+    
+    # Aplicar los filtros a la consulta
+    if titulo:
+        gastos = gastos.filter(titulo__icontains=titulo)
+    if categoria_id:
+        gastos = gastos.filter(categoria_id=categoria_id)
+    if fecha:
+        gastos = gastos.filter(fecha__date=fecha)  # Suponiendo que `fecha` es tipo Date
+    if monto:
+        try:
+            gastos = gastos.filter(monto=Decimal(monto))
+        except Decimal.InvalidOperation:
+            pass  # Ignorar si el monto no es un número válido
+
+    # Obtener todas las categorías para el filtro de categoría
+    categorias = Categorias.objects.filter(usuario_id=usuario_id)
+
+    context = {
+        'gastos': gastos,
+        'categorias': categorias,
+    }
+    
+    return render(request, 'historialGastos.html', context)
