@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+    
     <div class="container-main">
         <div class="container-1">
             <div class="container-graf"><img src="../static/images/grafic.svg"/></div>
@@ -23,10 +24,10 @@
             <div class="container-spenses">
                 <div class="spenses-title">
                     <h1>Gastos</h1>
-                    <a class="link" href="{% url 'nuevo-gasto' %}"><button>+</button></a>
-                    <a class="link" href="{% url 'historial-gastos' %}"><button>+++</button></a>
+                    <a class="link1" href="{% url 'nuevo-gasto' %}"><button>+</button></a>
+                    <a class="link2" href="{% url 'historial-gastos' %}"><button>&#x1F4DA;</button></a>
                 </div>
-    
+                {% include "mensajes.html" %}
                 <div class="container-list-spenses">
                     <ul class="list-spenses">
                         {% for gasto in gastos %}
@@ -68,5 +69,6 @@
             
         </div>
     </div>
+    <script src="{% static 'js/mensajes.js' %}"></script>
 </body>
 </html>

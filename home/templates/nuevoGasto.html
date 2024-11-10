@@ -13,16 +13,7 @@
 <body>
     <div class="container-main">
         <h2>Nuevo Gasto</h2>
-
-        <!-- Bloque para mostrar mensajes de éxito o error -->
-        {% if messages %}
-            <div class="message-container">
-                {% for message in messages %}
-                    <div class="alert {{ message.tags }}">{{ message }}</div>
-                {% endfor %}
-            </div>
-        {% endif %}
-
+        
         <form method="POST">
             {% csrf_token %}
             <input type="text" name="titulo" placeholder="Título del Gasto" maxlength="9" required/>

@@ -77,36 +77,42 @@ body {
 
 .container-spenses h1 {
     font-size: xxx-large;
-    margin: 0 0 0 10%;
+    margin: 0 25% 0 10%;
     font-weight: 700;
 }
 
 .container-spenses button {
-    margin-right: 10%;
-    width: 5vw;
-    height: 5vh;
+    width: 6vw;
+    height: 6vh;
     font-size: xx-large;
     background-color: #443AD8;
     border: none;
-    border-radius: 10px;
     color: aliceblue;
     margin-top: 4%;
     cursor: pointer;
+    border-radius: 15px;
+    text-align: center;
 }
 
-.link {
-    margin-right: 10%;
+.link1 {
     background-color: #443AD8;
     border: none;
-    border-radius: 10px;
     color: aliceblue;
+    border-radius: 15px 0px 0px 15px;
+}
+
+.link2 {
+    background-color: #443AD8;
+    border: none;
+    color: aliceblue;
+    border-radius: 0px 15px 15px 0px;
 }
 
 .spenses-title {
     display: flex;
     margin: 0;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     margin-top: 8%;
 }
