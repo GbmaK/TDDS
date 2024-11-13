@@ -32,14 +32,64 @@ body {
     height: 621px;
 }
 
+/* agregando estilo al grafico  */
 .container-graf {
     width: 623px !important;
     height: 270px;
-    background-color: #121212;
-    margin-right: 20px;
+    background-image: url('/static/images/grafic.svg');
     border-radius: 30px;
     box-shadow: 0px 4px 4px #00000025;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
 }
+
+.graf-points {
+    width: 100%;
+    height: 20px;
+}
+
+.graf-item {
+    text-align: center;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+}
+
+.graf-bar-container {
+    position: relative;
+    width: 30px;
+    height: 190px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.graf-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.presupuesto-bar {
+    background-color: #20C997; /* Verde para el presupuesto */
+    width: 10px;
+}
+
+.gasto-bar {
+    background-color: #EB5757; /* Rojo para el gasto */
+    width: 10px;
+    z-index: 1;
+}
+
+.graf-info {
+    font-size: xx-small;
+}
+/* agregando estilo al grafico  */
 
 .container-dates {
     width: 455px;

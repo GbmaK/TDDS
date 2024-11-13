@@ -1,44 +1,42 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.db.models import Q
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Sum
 from decimal import Decimal
 from .models import Gastos, Categorias, Presupuestos, Notificaciones
-import datetime
 
 def home_view(request):
     if 'usuario_id' in request.session:
         usuario_id = request.session['usuario_id']
+
+        # Obtener los gastos, categorías y presupuestos del usuario
         gastos = Gastos.objects.filter(usuario_id=usuario_id)
         categorias = Categorias.objects.filter(usuario_id=usuario_id)
         presupuestos = Presupuestos.objects.filter(usuario_id=usuario_id)
         notificaciones = Notificaciones.objects.filter(usuario_id=usuario_id)
 
-        # Calcular presupuesto restante por cada presupuesto
+        # Calcular el presupuesto restante por cada presupuesto
         presupuestos_data = []
         for presupuesto in presupuestos:
-            # Comprobamos si el presupuesto tiene una categoría asociada
-            if presupuesto.categoria:
-                total_gastos = Gastos.objects.filter(categoria_id=presupuesto.categoria.id_categoria, usuario_id=usuario_id).aggregate(Sum('monto'))['monto__sum'] or 0
-                presupuesto_restante = presupuesto.limite_presupuesto - total_gastos
-                presupuestos_data.append({
-                    'categoria': presupuesto.categoria,
-                    'limite_presupuesto': presupuesto.limite_presupuesto,
-                    'presupuesto_restante': presupuesto_restante
-                })
-            else:
-                # Si no tiene categoría, tratamos el presupuesto de manera diferente (sin gastos)
-                presupuestos_data.append({
-                    'categoria': None,  # No tiene categoría
-                    'limite_presupuesto': presupuesto.limite_presupuesto,
-                    'presupuesto_restante': presupuesto.limite_presupuesto  # El presupuesto restante es igual al límite
-                })
+            # Obtener la suma de los gastos para la categoría asociada al presupuesto
+            total_gastos = Gastos.objects.filter(
+                categoria_id=presupuesto.categoria.id_categoria, usuario_id=usuario_id
+            ).aggregate(Sum('monto'))['monto__sum'] or 0
+
+            # Calcular el presupuesto restante
+            presupuesto_restante = presupuesto.limite_presupuesto - total_gastos
+
+            # Agregar los datos calculados a la lista
+            presupuestos_data.append({
+                'categoria': presupuesto.categoria,
+                'limite_presupuesto': presupuesto.limite_presupuesto,
+                'gasto_total': total_gastos,
+                'presupuesto_restante': presupuesto_restante
+            })
 
         context = {
             'gastos': gastos,
             'categorias': categorias,
-            'presupuestos': presupuestos_data,  # Usamos los datos calculados
+            'presupuestos': presupuestos_data,  # Usar los datos calculados
             'notificaciones': notificaciones,
         }
 

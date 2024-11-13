@@ -8,15 +8,28 @@
     <link rel="stylesheet" href="{% static 'home.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     
     <div class="container-main">
         <div class="container-1">
-            <div class="container-graf"><img src="../static/images/grafic.svg"/></div>
+
+            <div class="container-graf">
+                {% for presupuesto in presupuestos %}
+                    <div class="graf-item">
+                        <div class="graf-bar-container">
+                            <div class="presupuesto-bar" data-presupuesto="{{ presupuesto.limite_presupuesto }}"></div>
+                            <!-- Barra de gasto -->
+                            <div class="gasto-bar" gasto_data="{{ presupuesto.gasto_total }}" data-presupuesto="{{ presupuesto.limite_presupuesto }}"></div>
+                        </div>
+                        <p class="graf-info">{{presupuesto.categoria.nombre_categoria}}</p>
+                    </div>
+                {% endfor %}
+            </div>
+
             <div class="container-dates"><img src="../static/images/dates.svg"/></div>
+
         </div>
     
         <div class="container-2">
@@ -47,7 +60,6 @@
                     </ul>
                 </div>
                 
-                
             </div>
 
             <!--############################################ PRESUPUESTOS FIGMA ###############################################-->
@@ -70,5 +82,28 @@
         </div>
     </div>
     <script src="{% static 'js/mensajes.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Modificar las barras de presupuesto
+            document.querySelectorAll('.presupuesto-bar').forEach(function(bar) {
+                let porcentaje = bar.getAttribute('data-presupuesto');
+                // Asegurarse de que el valor de porcentaje sea un número válido
+                if (porcentaje) {
+                    bar.style.height = 160 + 'px';
+                }
+            });
+    
+            // Modificar las barras de gasto
+            document.querySelectorAll('.gasto-bar').forEach(function(bar) {
+                let presupuesto = bar.getAttribute('data-presupuesto');
+                let gastos = bar.getAttribute('gasto_data');
+                let barra = gastos * 160 / presupuesto
+                // Asegurarse de que el valor de porcentaje sea un número válido
+                if (presupuesto) {
+                    bar.style.height = barra + 'px';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
