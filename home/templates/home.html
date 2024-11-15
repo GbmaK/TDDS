@@ -28,13 +28,26 @@
                 {% endfor %}
             </div>
 
-            <div class="container-dates"><img src="../static/images/dates.svg"/></div>
+            <div class="container-dates">
+                <div class="calendar">
+                    <div class="calendar-header">
+                        <div>
+                            <button id="prev-month" class="month-button">Anterior</button>
+                            <span id="month-name"></span>
+                            <button id="next-month" class="month-button">Siguiente</button>
+                        </div>
+                        <div><button id="clear-filter" class="btn-clear-filter">Borrar Filtro</button></div>
+                    </div>
+                    <div class="calendar-days" id="calendar-days">
+                    </div>
+                </div>
+            </div>
 
         </div>
     
         <div class="container-2">
             <!--########################################### GASTOS FIGMA #####################################################-->
-            <div class="container-spenses">
+            <div class="container-spenses" id="gastos-list">
                 <div class="spenses-title">
                     <h1>Gastos</h1>
                     <a class="link1" href="{% url 'nuevo-gasto' %}"><button>+</button></a>
@@ -42,9 +55,9 @@
                 </div>
                 {% include "mensajes.html" %}
                 <div class="container-list-spenses">
-                    <ul class="list-spenses">
+                    <ul class="list-spenses" id="gastos-list-ul">
                         {% for gasto in gastos %}
-                        <li class="element-spenses">
+                        <li class="element-spenses" data-fecha="{{ gasto.fecha|date:'Y-m-d' }}">
                             <div class="title-hour-spenses">
                                 <label>{{ gasto.titulo }}</label>
                                 <span>{{ gasto.fecha|date:"d/m/Y H:i A" }}</span>
@@ -81,29 +94,123 @@
             
         </div>
     </div>
+    
     <script src="{% static 'js/mensajes.js' %}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Modificar las barras de presupuesto
             document.querySelectorAll('.presupuesto-bar').forEach(function(bar) {
                 let porcentaje = bar.getAttribute('data-presupuesto');
-                // Asegurarse de que el valor de porcentaje sea un número válido
                 if (porcentaje) {
                     bar.style.height = 160 + 'px';
                 }
             });
-    
+
             // Modificar las barras de gasto
             document.querySelectorAll('.gasto-bar').forEach(function(bar) {
                 let presupuesto = bar.getAttribute('data-presupuesto');
                 let gastos = bar.getAttribute('gasto_data');
-                let barra = gastos * 160 / presupuesto
-                // Asegurarse de que el valor de porcentaje sea un número válido
+                let barra = (gastos * 160) / presupuesto;
                 if (presupuesto) {
                     bar.style.height = barra + 'px';
                 }
             });
+
+            // Función para mostrar el calendario
+            function mostrarCalendario(month, year) {
+                const monthName = document.getElementById('month-name');
+                const calendarDays = document.getElementById('calendar-days');
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+                monthName.textContent = new Date(year, month).toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+
+                calendarDays.innerHTML = '';
+
+                // Agregar espacios vacíos para los días anteriores al primer día del mes
+                for (let i = 0; i < firstDay; i++) {
+                    calendarDays.innerHTML += '<div></div>';
+                }
+
+                // Generar los días del mes
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.textContent = day;
+                    dayDiv.classList.add('calendar-day');
+                    dayDiv.addEventListener('click', function() {
+                        mostrarGastosPorFecha(year, month + 1, day); // Llamamos a la función para mostrar los gastos
+                    });
+                    calendarDays.appendChild(dayDiv);
+                }
+            }
+
+            // Función para mostrar los gastos de la fecha seleccionada
+            function mostrarGastosPorFecha(year, month, day) {
+                const gastosList = document.getElementById('gastos-list-ul');
+                const allGastos = document.querySelectorAll('.element-spenses');
+                const selectedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+
+                // Ocultar todos los gastos y solo mostrar los que coinciden con la fecha seleccionada
+                allGastos.forEach(function(gasto) {
+                    const gastoFecha = gasto.getAttribute('data-fecha');
+                    if (gastoFecha === selectedDate) {
+                        gasto.style.display = 'flex'; // Mostrar el gasto de la fecha seleccionada
+                    } else {
+                        gasto.style.display = 'none'; // Ocultar el gasto que no corresponde
+                    }
+                });
+            }
+
+            // Función para restablecer el filtro de fecha
+            function borrarFiltro() {
+                // Mostrar todos los gastos
+                const allGastos = document.querySelectorAll('.element-spenses');
+                allGastos.forEach(function(gasto) {
+                    gasto.style.display = 'flex'; // Mostrar todos los gastos
+                });
+
+                // Mostrar todos los días del calendario
+                const calendarDays = document.getElementById('calendar-days');
+                const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+                const calendarDaysDivs = calendarDays.querySelectorAll('.calendar-day');
+                calendarDaysDivs.forEach(function(dayDiv) {
+                    dayDiv.style.display = 'inline-block'; // Mostrar todos los días del mes
+                });
+            }
+
+            // Agregar el evento para el botón de borrar filtro
+            document.getElementById('clear-filter').addEventListener('click', function() {
+                borrarFiltro(); // Llamar la función para borrar el filtro
+            });
+
+            // Obtener la fecha actual
+            const currentDate = new Date();
+            let currentMonth = currentDate.getMonth(); // Mes actual
+            let currentYear = currentDate.getFullYear(); // Año actual
+
+            mostrarCalendario(currentMonth, currentYear);
+
+            document.getElementById('prev-month').addEventListener('click', function() {
+                if (currentMonth === 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                } else {
+                    currentMonth--;
+                }
+                mostrarCalendario(currentMonth, currentYear);
+            });
+
+            document.getElementById('next-month').addEventListener('click', function() {
+                if (currentMonth === 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                } else {
+                    currentMonth++;
+                }
+                mostrarCalendario(currentMonth, currentYear);
+            });
         });
+
     </script>
 </body>
 </html>

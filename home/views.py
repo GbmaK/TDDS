@@ -7,9 +7,13 @@ from .models import Gastos, Categorias, Presupuestos, Notificaciones
 def home_view(request):
     if 'usuario_id' in request.session:
         usuario_id = request.session['usuario_id']
+        fecha_seleccionada = request.GET.get('fecha')  # Obtener la fecha seleccionada desde la solicitud
 
-        # Obtener los gastos, categorías y presupuestos del usuario
+        # Filtrar los gastos, categorías y presupuestos del usuario
         gastos = Gastos.objects.filter(usuario_id=usuario_id)
+        if fecha_seleccionada:
+            gastos = gastos.filter(fecha__date=fecha_seleccionada)  # Filtrar los gastos por la fecha seleccionada
+
         categorias = Categorias.objects.filter(usuario_id=usuario_id)
         presupuestos = Presupuestos.objects.filter(usuario_id=usuario_id)
         notificaciones = Notificaciones.objects.filter(usuario_id=usuario_id)
@@ -38,6 +42,7 @@ def home_view(request):
             'categorias': categorias,
             'presupuestos': presupuestos_data,  # Usar los datos calculados
             'notificaciones': notificaciones,
+            'fecha_seleccionada': fecha_seleccionada,  # Enviar la fecha seleccionada al template
         }
 
         return render(request, 'home.html', context)
@@ -107,7 +112,7 @@ def nuevo_presupuesto(request):
         if existing_presupuesto:
             # Si ya existe un presupuesto, mostrar mensaje de error
             messages.error(request, "Ya tienes un presupuesto asignado a esta categoría.")
-            return redirect('nuevoPresupuesto')  # O redirigir a donde necesites
+            return redirect('nuevoPresupuesto')
 
         # Crear un nuevo presupuesto si no existe uno para esta categoría
         presupuesto = Presupuestos(
@@ -121,10 +126,15 @@ def nuevo_presupuesto(request):
 
         # Mensaje de éxito y redirección
         messages.success(request, "Presupuesto creado exitosamente.")
-        return redirect('home')  # O redirigir a la página que desees
+        return redirect('home')
 
-    # Obtener todas las categorías para el formulario
-    categorias = Categorias.objects.all()
+    # Obtener solo las categorías asociadas al usuario actual para el formulario
+    if 'usuario_id' in request.session:
+        usuario_id = request.session['usuario_id']
+        categorias = Categorias.objects.filter(usuario_id=usuario_id)
+    else:
+        categorias = Categorias.objects.none()
+
     return render(request, 'nuevoPresupuesto.html', {'categorias': categorias})
 
 def nueva_categoria(request):
