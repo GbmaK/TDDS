@@ -2,7 +2,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.db.models import Sum
 from decimal import Decimal
-from .models import Gastos, Categorias, Presupuestos, Notificaciones
+from .models import Gastos, Categorias, Presupuestos, Notificaciones, Historialgastos
+from django.http import HttpResponse
+from openpyxl import Workbook
+from reportlab.lib.pagesizes import letter
+from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from reportlab.pdfgen import canvas
+from datetime import datetime
+from django.template.defaultfilters import date
 
 def home_view(request):
     if 'usuario_id' in request.session:
@@ -207,37 +215,154 @@ def eliminar_gasto(request, gasto_id):
         return redirect('login')
     
 def historial_gastos(request):
-    # Obtener el usuario de la sesión
-    usuario_id = request.session.get('usuario_id')
-    
-    # Filtros iniciales
-    gastos = Gastos.objects.filter(usuario_id=usuario_id)
+    usuario_id = request.session.get('usuario_id')  # Obtener el ID del usuario de la sesión
+    gastos = Gastos.objects.filter(usuario_id=usuario_id)  # Filtrar los gastos del usuario
 
     # Leer los filtros de la solicitud GET
     titulo = request.GET.get('titulo')
     categoria_id = request.GET.get('categoria')
     fecha = request.GET.get('fecha')
     monto = request.GET.get('monto')
-    
-    # Aplicar los filtros a la consulta
+
+    # Aplicar los filtros a la consulta de gastos
     if titulo:
         gastos = gastos.filter(titulo__icontains=titulo)
     if categoria_id:
         gastos = gastos.filter(categoria_id=categoria_id)
     if fecha:
-        gastos = gastos.filter(fecha__date=fecha)  # Suponiendo que `fecha` es tipo Date
+        gastos = gastos.filter(fecha__date=fecha) 
     if monto:
         try:
             gastos = gastos.filter(monto=Decimal(monto))
         except Decimal.InvalidOperation:
-            pass  # Ignorar si el monto no es un número válido
+            messages.error(request, "Monto no válido.")
 
     # Obtener todas las categorías para el filtro de categoría
     categorias = Categorias.objects.filter(usuario_id=usuario_id)
 
+    # Retornar los gastos filtrados al template
     context = {
         'gastos': gastos,
         'categorias': categorias,
     }
-    
+
     return render(request, 'historialGastos.html', context)
+
+
+def exportar_historial_a_excel(request):
+    usuario_id = request.session.get('usuario_id')
+    gastos = Gastos.objects.filter(usuario_id=usuario_id)
+
+    # Filtrar si hay parámetros de búsqueda
+    titulo = request.GET.get('titulo', '')
+    categoria_id = request.GET.get('categoria', '')
+    fecha = request.GET.get('fecha', '')
+
+    if titulo:
+        gastos = gastos.filter(titulo__icontains=titulo)
+    if categoria_id:
+        gastos = gastos.filter(categoria_id=categoria_id)
+    if fecha:
+        try:
+            fecha = datetime.strptime(fecha, "%Y-%m-%d")
+            gastos = gastos.filter(fecha__date=fecha)
+        except ValueError:
+            pass  # Si el formato de fecha es incorrecto, se ignora el filtro
+
+    # Verificar si hay datos para exportar
+    if not gastos.exists():
+        messages.error(request, "No hay datos para exportar.")
+        return redirect('historial_gastos')
+
+    # Crear el archivo Excel
+    wb = Workbook()
+    ws = wb.active
+    ws.title = 'Historial de Gastos'
+
+    # Escribir los encabezados
+    ws.append(['Título', 'Categoría', 'Monto', 'Fecha', 'Descripción'])
+
+    # Escribir los datos de los gastos
+    for gasto in gastos:
+        # Usar el filtro date para formatear la fecha como en el HTML
+        if gasto.fecha:
+            formatted_date = date(gasto.fecha, 'b. d, Y, P')  # Formato: Nov. 15, 2024, 7:22 a.m
+        else:
+            formatted_date = None
+
+        ws.append([gasto.titulo, gasto.categoria.nombre_categoria, gasto.monto, formatted_date, gasto.descripcion])
+
+    # Crear la respuesta HTTP para descargar el archivo Excel
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=historial_gastos.xlsx'
+    wb.save(response)
+    return response
+
+def exportar_historial_a_pdf(request):
+    usuario_id = request.session.get('usuario_id')
+    gastos = Gastos.objects.filter(usuario_id=usuario_id)
+
+    # Filtrar si hay parámetros de búsqueda
+    titulo = request.GET.get('titulo', '')
+    categoria_id = request.GET.get('categoria', '')
+    fecha = request.GET.get('fecha', '')
+
+    if titulo:
+        gastos = gastos.filter(titulo__icontains=titulo)
+    if categoria_id:
+        gastos = gastos.filter(categoria_id=categoria_id)
+    if fecha:
+        try:
+            fecha = datetime.strptime(fecha, "%Y-%m-%d")
+            gastos = gastos.filter(fecha__date=fecha)
+        except ValueError:
+            pass  # Si el formato de fecha es incorrecto, se ignora el filtro
+
+    # Verificar si hay datos para exportar
+    if not gastos.exists():
+        messages.error(request, "No hay datos para exportar.")
+        return redirect('historial_gastos')
+
+    # Crear el PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; filename="historial_gastos.pdf"'
+
+    doc = SimpleDocTemplate(response, pagesize=letter)
+    elements = []
+
+    # Crear la tabla con los encabezados
+    data = [['Título', 'Categoría', 'Monto', 'Fecha', 'Descripción']]  # Encabezados
+
+    # Agregar cada gasto a la tabla
+    for gasto in gastos:
+        # Formato de fecha
+        if gasto.fecha:
+            formatted_date = gasto.fecha.strftime('%b. %d, %Y, %I:%M %p')  # Nov. 15, 2024, 7:22 a.m
+        else:
+            formatted_date = ''
+
+        data.append([gasto.titulo, gasto.categoria.nombre_categoria, gasto.monto, formatted_date, gasto.descripcion])
+
+    # Crear la tabla
+    table = Table(data)
+
+    # Estilo de la tabla
+    style = TableStyle([
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),  # Encabezado blanco
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),  # Alineación central
+        ('BACKGROUND', (0, 0), (-1, 0), colors.darkblue),  # Fondo azul para encabezados
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.black),  # Líneas de la tabla
+        ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),  # Fuente estándar
+        ('FONTSIZE', (0, 0), (-1, -1), 10),  # Tamaño de la fuente
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),  # Espacio inferior en encabezados
+        ('TOPPADDING', (0, 1), (-1, -1), 10),  # Espacio superior en datos
+    ])
+    table.setStyle(style)
+
+    # Agregar la tabla a los elementos
+    elements.append(table)
+
+    # Construir el documento PDF
+    doc.build(elements)
+
+    return response
