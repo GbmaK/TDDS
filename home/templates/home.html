@@ -96,6 +96,109 @@
     </div>
     
     <script src="{% static 'js/mensajes.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Modificar las barras de presupuesto
+        document.querySelectorAll('.presupuesto-bar').forEach(function(bar) {
+            let porcentaje = bar.getAttribute('data-presupuesto');
+            if (porcentaje) {
+                bar.style.height = 160 + 'px';
+            }
+        });
+
+        // Modificar las barras de gasto
+        document.querySelectorAll('.gasto-bar').forEach(function(bar) {
+            let presupuesto = bar.getAttribute('data-presupuesto');
+            let gastos = bar.getAttribute('gasto_data');
+            let barra = (gastos * 160) / presupuesto;
+            if (presupuesto) {
+                bar.style.height = barra + 'px';
+            }
+        });
+
+        // Función para mostrar el calendario
+        function mostrarCalendario(month, year) {
+            const monthName = document.getElementById('month-name');
+            const calendarDays = document.getElementById('calendar-days');
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // Obtener el nombre del mes y capitalizar la primera letra
+            let nombreMes = new Date(year, month).toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+            nombreMes = nombreMes.charAt(0).toUpperCase() + nombreMes.slice(1);
+
+            monthName.textContent = nombreMes;
+
+            calendarDays.innerHTML = '';
+
+            // Agregar espacios vacíos para los días anteriores al primer día del mes
+            for (let i = 0; i < firstDay; i++) {
+                calendarDays.innerHTML += '<div></div>';
+            }
+
+            // Generar los días del mes
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.textContent = day;
+                dayDiv.classList.add('calendar-day');
+                dayDiv.addEventListener('click', function() {
+                    mostrarGastosPorFecha(year, month + 1, day); // Llamamos a la función para mostrar los gastos
+                });
+                calendarDays.appendChild(dayDiv);
+            }
+        }
+
+        // Función para mostrar los gastos de la fecha seleccionada
+        function mostrarGastosPorFecha(year, month, day) {
+            const allGastos = document.querySelectorAll('.element-spenses');
+            const selectedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+
+            // Ocultar todos los gastos y solo mostrar los que coinciden con la fecha seleccionada
+            allGastos.forEach(function(gasto) {
+                const gastoFecha = gasto.getAttribute('data-fecha');
+                gasto.style.display = gastoFecha === selectedDate ? 'flex' : 'none';
+            });
+        }
+
+        // Función para restablecer el filtro de fecha
+        function borrarFiltro() {
+            document.querySelectorAll('.element-spenses').forEach(function(gasto) {
+                gasto.style.display = 'flex';
+            });
+        }
+
+        // Agregar el evento para el botón de borrar filtro
+        document.getElementById('clear-filter').addEventListener('click', borrarFiltro);
+
+        // Obtener la fecha actual
+        const currentDate = new Date();
+        let currentMonth = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
+
+        mostrarCalendario(currentMonth, currentYear);
+
+        document.getElementById('prev-month').addEventListener('click', function() {
+            currentMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+            currentYear = currentMonth === 11 ? currentYear - 1 : currentYear;
+            mostrarCalendario(currentMonth, currentYear);
+        });
+
+        document.getElementById('next-month').addEventListener('click', function() {
+            currentMonth = currentMonth === 11 ? 0 : currentMonth + 1;
+            currentYear = currentMonth === 0 ? currentYear + 1 : currentYear;
+            mostrarCalendario(currentMonth, currentYear);
+        });
+    });
+</script>
+
+</body>
+</html>
+<!---
+
+Modifique el tema del calendario para que hiciera un Capitalice (colocar mayusculas la primera letra del mes), pero vi que ahorro codigo el coso,
+ asique porsiaciaso lo dejo como estaba antes de eso que hice
+
+<script src="{% static 'js/mensajes.js' %}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Modificar las barras de presupuesto
@@ -212,5 +315,6 @@
         });
 
     </script>
-</body>
-</html>
+
+
+-->>

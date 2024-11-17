@@ -129,6 +129,7 @@ body {
     font-weight: 600;
     transition: 0.5s;
     height: 30px;
+    padding: 8px;
 }
 
 .month-button:hover {
@@ -140,7 +141,7 @@ body {
     background: #443AD8;
     color: white;
     border: none;
-    padding: 10px;
+    padding: 6px;
     border-radius: 25px;
     font-weight: 600;
     transition: 0.5s;
@@ -207,13 +208,12 @@ body {
 }
 
 .container-spenses button {
-    width: 6vw;
+    width: 4vw;
     height: 6vh;
     font-size: xx-large;
     background-color: #443AD8;
     border: none;
     color: aliceblue;
-    margin-top: 4%;
     cursor: pointer;
     border-radius: 15px;
     text-align: center;
@@ -226,6 +226,11 @@ body {
     border-radius: 15px 0px 0px 15px;
 }
 
+.link1 :hover {
+    background-color: #4b57ff;
+}
+
+
 .link2 {
     background-color: #443AD8;
     border: none;
@@ -233,13 +238,19 @@ body {
     border-radius: 0px 15px 15px 0px;
 }
 
+.link2 :hover {
+    background-color: #4b57ff;
+}
+
 .spenses-title {
     display: flex;
     margin: 0;
     flex-direction: row;
-    justify-content: flex-start;
+    
+    justify-content: center;
     align-items: center;
     margin-top: 8%;
+    
 }
 
 .list-spenses {
