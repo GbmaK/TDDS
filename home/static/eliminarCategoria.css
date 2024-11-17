@@ -10,14 +10,20 @@ body {
     font-style: normal !important;
 }
 
+label {
+    cursor: default;
+    text-align: center;
+    display: block;
+}
+
 /* Estilo principal del contenedor */
 .container-main {
     top: 25vh;
     position: relative;
     margin: auto;
     background-color: #121212 !important;
-    height: 50vh !important;
-    width: 40vw !important;
+    height: 25vh !important;
+    width: 32vw !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -25,6 +31,14 @@ body {
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25) !important;
     padding: 20px !important;
     transition: all 0.3s ease !important;
+}
+
+/* Estilo para el título */
+.title {
+    color: white !important;
+    font-size: 24px !important;
+    font-weight: bold !important;
+    margin-bottom: 20px !important;
 }
 
 /* Estilo para el formulario */
@@ -37,29 +51,7 @@ body {
     justify-content: center !important;
 }
 
-/* Estilo para los inputs */
-.container-main form input {
-    width: 100% !important;
-    padding: 8px !important;
-    margin: 1% 2% 1% 2% !important;
-    height: 28px !important;
-    border-radius: 30px !important;
-    border: 2px solid #58446b !important;
-    background-color: #2C2C2C !important;
-    color: #FFF !important;
-    font-size: 16px !important;
-    transition: all 0.3s ease !important;
-}
-
-/* Efecto cuando el input está en foco */
-.container-main form input:focus {
-    border-color: #9B59B6 !important; /* Color morado */
-    background-color: #333 !important;
-    box-shadow: 0 0 8px rgba(155, 89, 182, 0.7) !important;
-    outline: none !important;
-}
-
-/* Estilo para select/categorias */
+/* Estilo para select/categorías */
 .categorias {
     width: 100% !important;
     margin: 1% 2% 1% 2% !important;
@@ -67,22 +59,20 @@ body {
     border-radius: 30px !important;
     border: 2px solid #58446b !important;
     background-color: #2C2C2C !important;
-    color: #ffffff!important;
+    color: #ffffff !important;
     font-size: 16px !important;
     padding-left: 12px !important;
     transition: all 0.3s ease !important;
     box-sizing: content-box !important;
-
 }
 
 /* Efecto cuando el select está en foco */
 .categorias:focus {
-    border-color: #9B59B6 !important; /* Color morado */
+    border-color: #9B59B6 !important;
     background-color: #333 !important;
     box-shadow: 0 0 8px rgba(155, 89, 182, 0.7) !important;
     outline: none !important;
     box-sizing: content-box !important;
-
 }
 
 /* Estilo para los botones principales */
@@ -92,7 +82,7 @@ body {
     height: 4.5vh !important;
     padding: 0 !important;
     border-radius: 30px !important;
-    background-color: #674c81 !important;
+    background-color: #EB5757 !important;
     color: white !important;
     font-size: 18px !important;
     font-weight: bold !important;
@@ -105,57 +95,12 @@ body {
 
 /* Efecto hover en el botón */
 .container-main form button:hover {
-    background-color:#BB86FC!important;
+    background-color: #a83e3e !important;
     transform: scale(1.05) !important;
 }
 
 /* Efecto focus en el botón */
 .container-main form button:focus {
-    outline: none !important;
-    box-shadow: 0 0 8px rgba(155, 89, 182, 0.7) !important;
-}
-
-/* Estilo para los botones secundarios */
-.container-buttons {
-    display: flex !important;
-    justify-content: space-between !important;
-    width: 100% !important;
-    margin-top: 20px !important;
-}
-
-/* Botones secundarios */
-.container-buttons button {
-    padding: 10px 20px !important;
-    border-radius: 30px !important;
-    background-color: #444 !important;
-    color: white !important;
-    font-size: 14px !important;
-    font-weight: bold !important;
-    border: none !important;
-    cursor: pointer !important;
-    transition: background-color 0.3s ease, transform 0.3s ease !important;
-    width: 48% !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-}
-
-/* Efecto hover en los botones secundarios */
-.container-buttons button:hover {
-    background-color:#BB86FC80!important;
-    transform: scale(1.05) !important;
-}
-
-/* Estilo para los enlaces dentro de los botones secundarios */
-.container-buttons button a {
-    color: white !important;
-    text-decoration: none !important;
-    width: 100% !important;
-    text-align: center !important;
-}
-
-/* Efecto focus en los botones secundarios */
-.container-buttons button:focus {
     outline: none !important;
     box-shadow: 0 0 8px rgba(155, 89, 182, 0.7) !important;
 }

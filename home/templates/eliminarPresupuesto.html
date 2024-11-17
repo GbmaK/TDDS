@@ -1,12 +1,33 @@
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EliminarPresupuesto</title>
 
-<form method="post">
-    {% csrf_token %}
-    <label for="presupuesto">Selecciona un presupuesto a eliminar:</label>
-    <select name="presupuesto" id="presupuesto" required>
-        {% for presupuesto in presupuestos %}
-            <option value="{{ presupuesto.id_presupuesto }}">{{ presupuesto.categoria.nombre_categoria }} ({{ presupuesto.fecha_inicio }} - {{ presupuesto.fecha_fin }})</option>
-        {% endfor %}
-    </select>
-    <button type="submit">Eliminar Presupuesto</button>
-</form>
+    <!-- Importar Bootstrap desde el CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-pzjw8f+ua7Kw1TIq0dlnLq97Y2v2F/p1Qz0gB57j7P6thSL01x8MEFS3D1wfjU7T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'eliminarpresupuesto.css' %}">
+</head>
+<body>
+
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <label for="categoria" >Eliminar Presupuesto:</label>
+            <select name="presupuesto" id="categoria" required class="form-control">
+                {% for presupuesto in presupuestos %}
+                    <option value="{{ presupuesto.id_presupuesto }}">{{ presupuesto.categoria.nombre_categoria }} ({{ presupuesto.fecha_inicio }} - {{ presupuesto.fecha_fin }})</option>
+                {% endfor %}
+            </select>            
+            <button type="submit">Eliminar Presupuesto</button>
+        </form>
+    </div>
+
+    <!-- Importar los scripts de Bootstrap desde el CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zyJfK6RjlG3LqxP9Xl5Z+hAmI0t8J2keQ0tPpP3X" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0dlnLq97Y2v2F/p1Qz0gB57j7P6thSL01x8MEFS3D1wfjU7T" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0dlnLq97Y2v2F/p1Qz0gB57j7P6thSL01x8MEFS3D1wfjU7T" crossorigin="anonymous"></script>
+</body>
+</html>

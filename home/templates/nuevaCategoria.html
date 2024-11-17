@@ -1,28 +1,39 @@
 <!-- nuevaCategoria.html -->
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nueva Categoría</title>
+    <title>Crear Nueva Categoría</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'categoria.css' %}">
 </head>
+
 <body>
-    <h2 >Crear Nueva Categoría</h2>
-    <form method="post" action="{% url 'nuevaCategoria' %}">
-        {% csrf_token %}
+    <div class="container">
+        <h2 class="title">Crear Nueva Categoría</h2>
+        <form method="post" action="{% url 'nuevaCategoria' %}">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="nombre_categoria">Nombre de la Categoría:</label>
+                <input type="text" name="nombre_categoria" id="nombre_categoria" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                <textarea name="descripcion" id="descripcion" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn-submit">Crear Categoría</button>
+        </form>
+
+        <button class="btn-delete">
+            <a href="{% url 'eliminar-categoria' %}" class="link-delete">Eliminar Categoría</a>
+        </button>
         
-        <!-- Nombre de la Categoría -->
-        <label for="nombre_categoria">Nombre de la Categoría:</label>
-        <input type="text" name="nombre_categoria" id="nombre_categoria" required>
-        
-        <!-- Descripción de la Categoría -->
-        <label for="descripcion">Descripción:</label>
-        <textarea name="descripcion" id="descripcion" required></textarea>
-        
-        <button type="submit">Crear Categoría</button>
-    </form>
-    <button><a href="{% url 'eliminar-categoria' %}">Eliminar Categoría</a></button>
+    </div>
 </body>
+
 </html>

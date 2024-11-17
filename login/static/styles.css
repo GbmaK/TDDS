@@ -55,6 +55,13 @@ body {
     justify-content: space-evenly !important;
 }
 
+.btn-container a.btn, .btn-container button {
+    height: 60px !important;        /* Ajusta la altura automáticamente */
+    white-space: normal !important; /* Permite que el texto se ajuste */
+    text-align: center !important;  /* Centra el texto */
+    padding: 10px !important;       /* Espaciado interno */
+}
+
 .form-control {
     background-color: transparent !important;
     border: 2px solid #a26bfd !important ;

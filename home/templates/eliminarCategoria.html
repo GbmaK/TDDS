@@ -1,11 +1,30 @@
 {% load static %}
-<form method="post">
-    {% csrf_token %}
-    <label for="categoria">Selecciona una categoría a eliminar:</label>
-    <select name="categoria" id="categoria" required>
-        {% for categoria in categorias %}
-            <option value="{{ categoria.id_categoria }}">{{ categoria.nombre_categoria }}</option>
-        {% endfor %}
-    </select>
-    <button type="submit">Eliminar Categoría</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Categoria</title>
+    <link rel="stylesheet" href="{% static 'eliminarCategoria.css' %}">
+
+</head>
+<body>
+    <div class="container-main">
+        <h2 class="title">Eliminar Categoría</h2>
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="categoria">Selecciona una categoría a eliminar:</label>
+                <select name="categoria" id="categoria" class="categorias" required>
+                    {% for categoria in categorias %}
+                        <option value="{{ categoria.id_categoria }}">{{ categoria.nombre_categoria }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit">Eliminar Categoría</button>
+        </form>
+    </div>
+</body>
+</html>

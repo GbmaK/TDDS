@@ -154,7 +154,8 @@ body {
 .calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
+    gap: 4px;
+    margin-top: 2px;
 }
 
 .calendar-days div {

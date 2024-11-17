@@ -1,0 +1,83 @@
+/* base.css */
+
+/* Estilo general para el cuerpo */
+body {
+    font-family: "Montserrat", sans-serif !important;
+    background-color: #3D3D3D !important;
+    color: aliceblue !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-optical-sizing: auto !important;
+    font-style: normal !important;
+
+    /* Usar Flexbox para centrar el contenedor */
+    display: flex !important;
+    justify-content: center !important; /* Centrado horizontal */
+    align-items: center !important; /* Centrado vertical */
+    height: 100vh !important; /* Tomar el 100% de la altura de la ventana */
+}
+
+/* Estilo para el contenedor principal */
+.container {
+    width: 60% !important;  /* Reducir el ancho */
+    max-width: 600px !important;  /* Ancho máximo más pequeño */
+    padding: 30px !important;  /* Mayor relleno para hacerlo más alto */
+    background-color: #1a1a1a !important; /* Fondo ligeramente más claro */
+    border-radius: 10px !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2) !important;
+    height: auto !important;  /* Aumentar la altura */
+}
+
+/* Estilo para los formularios */
+form {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 15px !important;
+}
+
+/* Estilo para las etiquetas */
+label {
+    font-size: 1.1rem !important;
+    font-weight: bold !important;
+    color: #bbb !important; /* Color gris claro */
+    text-align: center !important;
+}
+
+/* Estilo para los campos de selección (select) */
+select {
+    padding: 10px !important;
+    border: 2px solid #7647a1;
+    background-color: #555 !important;
+    color: #fff !important;
+    border-radius: 10px !important;
+    font-size: 1rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+select:focus {
+    outline: none !important;
+    border-color: #613b85 !important; /* Color al hacer focus */
+}
+
+/* Estilo para los botones */
+button {
+    padding: 10px 20px !important;
+    background-color: #EB5757;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-size: 1rem !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s ease !important;
+}
+
+button:hover {
+    background-color: #a8030b !important; /* Color azul más oscuro al pasar el ratón */
+}
+
+/* Estilo para mensajes de error o advertencia (si los hay) */
+.error-message {
+    color: #ff4c4c !important; /* Color rojo para errores */
+    font-size: 0.9rem !important;
+}
